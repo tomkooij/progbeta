@@ -12,21 +12,16 @@ def isPrime(n):
     return True
 
 
-def primes(n):
-    """yield primes up to n"""
-    for i in range(n):
-        if isPrime(i):
-            yield i
-
-
 N = 1000
-primes = list(primes(N))
 
-goldbach = {}
+
+# lookup-table for all possible sums of primes
+primes = [x for x in range(N) if isPrime(x)]
+sum_of_primes = {}
 for p1 in primes:
     for p2 in primes:
-        goldbach[p1 + p2] = (p1, p2)
+        sum_of_primes[p1 + p2] = (p1, p2)
 
 for n in range(4, N + 1, 2):
-    a, b = goldbach[n]
+    a, b = sum_of_primes[n]
     print(f'{n} = {a} + {b}')
